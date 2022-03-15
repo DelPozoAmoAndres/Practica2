@@ -1,0 +1,108 @@
+
+    @Test
+    @DisplayName("Constructor")
+    void constructor() {}
+
+    @Nested
+    class Appending {
+        @Test
+        @DisplayName("append | primer elemento")
+        void addRightFirst() {}
+
+        @Test
+        @DisplayName("append | varios elementos")
+        void addRightMany() {}
+
+        @Test
+        @DisplayName("append | añadimos null y salta excepcion")
+        void addRightError() {}
+
+        @Test
+        @DisplayName("appendLeft | primer elemento")
+        void addLeftFirst() {}
+
+        @Test
+        @DisplayName("appendLeft | varios elementos")
+        void addLeftMany() {}
+
+        @Test
+        @DisplayName("appendLeft | añadimos null y salta excepcion")
+        void addLeftError() {}
+    }
+
+    @Nested
+    class Deleting {
+        @Test
+        @DisplayName("deleteLast | un elemento")
+        void deleteLastOne() {}
+
+        @Test
+        @DisplayName("deleteLast | varios elementos")
+        void deleteLastMany() {}
+
+        @Test
+        @DisplayName("deleteLast | cola vacia y salta excepcion")
+        void deleteLastError() {}
+
+        @Test
+        @DisplayName("deleteFirst | un elemento")
+        void deleteFirstOne() {}
+
+        @Test
+        @DisplayName("deleteFirst | varios elementos")
+        void deleteFirstMany() {}
+
+        @Test
+        @DisplayName("deleteFirst | cola vacia y salta excepcion")
+        void deleteFirstError() {}
+    }
+	
+    @Nested
+    class Constructor {
+        @Test
+        @DisplayName("Constructor con Item")
+        void ConstructorItem() {}
+
+        @Test
+        @DisplayName("Constructor con Item, Next, Previous")
+        void ConstructorTodosParametros() {}
+    }
+
+    @Nested
+    class IsLast {
+        @Test
+        @DisplayName("isLastNode | Es el último")
+        void esUltimo() {}
+
+        @Test
+        @DisplayName("isLastNode | No es el último")
+        void noEsUltimo() {}
+    }
+
+    @Nested
+    class isFirst {
+        @Test
+        @DisplayName("isFirstNode | Es el primero")
+        void esElPrimero() {}
+
+        @Test
+        @DisplayName("isFirstNode | No es el primero")
+        void noEsElPrimero() {}
+    }
+
+    @Nested
+    class isNotATerminal {
+        @Test
+        @DisplayName("isNotATerminalNode | Es intermedio")
+        void esUnoIntermedio() {}
+
+        @Test
+        @DisplayName("isNotATerminalNode | No es intermedio, es el primero")
+        void noEsUnoIntermedioEsPrimero() {}
+
+        @Test
+        @DisplayName("isNotATerminalNode | No es intermedio, es el último")
+        void noEsUnoIntermedioEsUltimo() {}
+    }
+}
+

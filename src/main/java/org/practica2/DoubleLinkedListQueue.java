@@ -1,6 +1,3 @@
-<<<<<<< Updated upstream
-package org.practica2;public class DoubleLinkedListQueue {
-=======
 package org.practica2;
 
 public class DoubleLinkedListQueue<T> implements DoubleEndedQueue<T>{
@@ -83,5 +80,4 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue<T>{
     public int size() {
         return numElements;
     }
->>>>>>> Stashed changes
 }
