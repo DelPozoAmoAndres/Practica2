@@ -113,8 +113,10 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue<T>{
     public void delete(DequeNode<T> node) {
         DequeNode<T> myNodo=head;
         while (myNodo.getNext()!=null){
-            if(myNodo.equals(node))
+            if(myNodo.equals(node)) {
                 myNodo.getPrevious().setNext(myNodo.getNext());
+                numElements--;
+            }
             myNodo=myNodo.getNext();
         }
         throw new RuntimeException("No se ha encontrado el item");
