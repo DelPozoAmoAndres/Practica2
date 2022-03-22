@@ -36,6 +36,8 @@ public class DequeNode<T> {
         return item;
     }
 
+    public void setItem(T item){ this.item=item; }
+
     public DequeNode<T> getNext() {
         return next;
     }

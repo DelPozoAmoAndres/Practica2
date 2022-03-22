@@ -1,5 +1,7 @@
 package org.practica2;
 
+import java.util.Comparator;
+
 public class DoubleLinkedListQueue<T> implements DoubleEndedQueue<T>{
 
     private int numElements;
@@ -79,5 +81,55 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue<T>{
     @Override
     public int size() {
         return numElements;
+    }
+
+    @Override
+    public DequeNode<T> getAt(int position) {
+        if(position<0)
+            throw new RuntimeException("La posicion no puede ser negativa");
+        int counter=0;
+        DequeNode<T> myNodo=head;
+        while (myNodo.getNext()!=null){
+            if(counter==position)
+                return myNodo;
+            myNodo=myNodo.getNext();
+            counter++;
+        }
+        throw new RuntimeException("La posicion es mayor al tamaño de la cola");
+    }
+
+    @Override
+    public DequeNode<T> find(T item) {
+        DequeNode<T> myNodo=head;
+        while (myNodo.getNext()!=null){
+            if(myNodo.getItem().equals(item))
+                return myNodo;
+            myNodo=myNodo.getNext();
+        }
+        throw new RuntimeException("No se ha encontrado el item");
+    }
+
+    @Override
+    public void delete(DequeNode<T> node) {
+        DequeNode<T> myNodo=head;
+        while (myNodo.getNext()!=null){
+            if(myNodo.equals(node))
+                myNodo.getPrevious().setNext(myNodo.getNext());
+            myNodo=myNodo.getNext();
+        }
+        throw new RuntimeException("No se ha encontrado el item");
+    }
+
+    @Override
+    public void sort(Comparator<T> comparator) {
+        DequeNode<T> pivote = head;
+        while(pivote.getNext()!=null){
+            if (comparator.compare(pivote.getItem(), pivote.getNext().getItem())<0){
+                T aux = pivote.getItem();
+                pivote.setItem(pivote.getNext().getItem());
+                pivote.getNext().setItem(aux);
+            }
+            pivote=pivote.getNext();
+        }
     }
 }
