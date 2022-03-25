@@ -1,5 +1,7 @@
 package org.practica2;
 
+import java.util.Objects;
+
 /**
  * Class representing a node of a double-ended queue (deque). Each node has pointers to
  * the next and previous nodes.
@@ -56,5 +58,13 @@ public class DequeNode<T> {
 
     public boolean isNotATerminalNode() {
         return (!isFirstNode() && !isLastNode());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DequeNode<?> dequeNode = (DequeNode<?>) o;
+        return Objects.equals(item, dequeNode.item) && Objects.equals(next, dequeNode.next) && Objects.equals(previous, dequeNode.previous);
     }
 }

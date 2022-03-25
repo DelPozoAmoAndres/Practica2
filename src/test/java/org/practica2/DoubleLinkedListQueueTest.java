@@ -1,8 +1,8 @@
 package org.practica2;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -191,6 +191,112 @@ public class DoubleLinkedListQueueTest {
             DoubleLinkedListQueue<Integer> cola = new DoubleLinkedListQueue<>();
             //Act & Assert
             assertThrowsExactly(RuntimeException.class, () -> cola.deleteFirst());
+        }
+    }
+
+    @Nested
+    class GetAt {
+
+        private DoubleLinkedListQueue<Integer> cola;
+
+        @BeforeEach
+        void createQueue(){
+            //Arrange
+            cola= new DoubleLinkedListQueue();
+            cola.append(new DequeNode<>(1));
+            cola.append(new DequeNode<>(2));
+        }
+        @ParameterizedTest
+        @DisplayName("getAt | posicion dentro de los limites")
+        @CsvSource({"0,1","1,2"})
+        void getAtValidPosition(int postion,int itemExpected) {
+            //Act
+            var node=cola.getAt(postion);
+            //Assert
+            assertEquals(itemExpected, node.getItem());
+        }
+
+        @Test
+        @DisplayName("getAt | posicion negativa lanza excepcion")
+        void getAtNegativePosition(){
+            //Act && Assert
+            assertThrowsExactly(RuntimeException.class, () -> cola.getAt(-1));
+        }
+
+        @Test
+        @DisplayName("getAt | posicion mayor que size lanza excepcion")
+        void getAtInvalidPosition(){
+            //Act && Assert
+            assertThrowsExactly(RuntimeException.class, () -> cola.getAt(3));
+        }
+    }
+
+    @Nested
+    class Find {
+        private DoubleLinkedListQueue<Integer> cola;
+
+        @BeforeEach
+        void createQueue(){
+            //Arrange
+            cola= new DoubleLinkedListQueue();
+            cola.append(new DequeNode<>(1));
+            cola.append(new DequeNode<>(2));
+        }
+
+        @Test
+        @DisplayName("find | elementos existentes")
+        void findValidElements() {
+            //Arrange
+            var colaExpected = new DoubleLinkedListQueue<Integer>();
+            var node1Expected=new DequeNode<>(1);
+            var node2Expected=new DequeNode<>(2);
+            colaExpected.append(node1Expected);
+            colaExpected.append(node2Expected);
+            //Act
+            var node1Actual=cola.find(1);
+            var node2Actual=cola.find(2);
+            //Assert
+            assertEquals(node1Expected, node1Actual);
+            assertEquals(node2Expected, node2Actual);
+        }
+        @Test
+        @DisplayName("find | elemento inexistente")
+        void findInValidElement() {
+            //Act && Assert
+            assertThrowsExactly(RuntimeException.class, () -> cola.find(3));
+        }
+        @Test
+        @DisplayName("find | elemento null lanza excepcion")
+        void findInNullElement() {
+            //Act && Assert
+            assertThrowsExactly(RuntimeException.class, () -> cola.find(3));
+        }
+
+    }
+
+    @Nested
+    class Delete {
+        private DoubleLinkedListQueue<Integer> cola;
+
+        @BeforeEach
+        void createQueue(){
+            //Arrange
+            cola= new DoubleLinkedListQueue();
+            cola.append(new DequeNode<>(1));
+            cola.append(new DequeNode<>(2));
+        }
+    }
+
+    @Nested
+    class Sort {
+        private DoubleLinkedListQueue<Integer> cola;
+
+        @BeforeEach
+        void createQueue(){
+            //Arrange
+            cola= new DoubleLinkedListQueue();
+            cola.append(new DequeNode<>(1));
+            cola.append(new DequeNode<>(2));
         }
     }
 }

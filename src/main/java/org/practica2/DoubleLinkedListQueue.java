@@ -1,6 +1,7 @@
 package org.practica2;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 public class DoubleLinkedListQueue<T> implements DoubleEndedQueue<T>{
 
@@ -87,9 +88,11 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue<T>{
     public DequeNode<T> getAt(int position) {
         if(position<0)
             throw new RuntimeException("La posicion no puede ser negativa");
+        if(position>this.size())
+            throw new RuntimeException("La posicion no puede ser mayor que la longitud de la cola");
         int counter=0;
         DequeNode<T> myNodo=head;
-        while (myNodo.getNext()!=null){
+        while (myNodo!=null){
             if(counter==position)
                 return myNodo;
             myNodo=myNodo.getNext();
@@ -100,8 +103,10 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue<T>{
 
     @Override
     public DequeNode<T> find(T item) {
+        if(item==null)
+            throw new RuntimeException("El item a buscar no puede ser null");
         DequeNode<T> myNodo=head;
-        while (myNodo.getNext()!=null){
+        while (myNodo!=null){
             if(myNodo.getItem().equals(item))
                 return myNodo;
             myNodo=myNodo.getNext();
