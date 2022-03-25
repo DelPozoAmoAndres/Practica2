@@ -4,6 +4,8 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.Comparator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DoubleLinkedListQueueTest {
@@ -256,8 +258,8 @@ public class DoubleLinkedListQueueTest {
             var node1Actual=cola.find(1);
             var node2Actual=cola.find(2);
             //Assert
-            assertEquals(node1Expected, node1Actual);
-            assertEquals(node2Expected, node2Actual);
+            assertEquals(node1Expected.getItem(), node1Actual.getItem());
+            assertEquals(node2Expected.getItem(), node2Actual.getItem());
         }
         @Test
         @DisplayName("find | elemento inexistente")
@@ -267,7 +269,7 @@ public class DoubleLinkedListQueueTest {
         }
         @Test
         @DisplayName("find | elemento null lanza excepcion")
-        void findInNullElement() {
+        void findNullElement() {
             //Act && Assert
             assertThrowsExactly(RuntimeException.class, () -> cola.find(3));
         }
@@ -284,7 +286,73 @@ public class DoubleLinkedListQueueTest {
             cola= new DoubleLinkedListQueue();
             cola.append(new DequeNode<>(1));
             cola.append(new DequeNode<>(2));
+            cola.append(new DequeNode<>(3));
+
         }
+        @Test
+        @DisplayName("Delete | elemento null lanza excepcion")
+        void DeleteNullElement() {
+            //Act && Assert
+            assertThrowsExactly(RuntimeException.class, () -> cola.delete(null));
+        }
+        @Test
+        @DisplayName("Delete | un unico elemento en la lista")
+        void DeleteUnicoElement() {
+            //Arange
+            cola.deleteLast();
+            cola.deleteLast();
+            var length=cola.size();
+            //Act
+            cola.delete(cola.find(1));
+            // Assert
+            assertThrowsExactly(RuntimeException.class,()->cola.find(1));
+            assertEquals(length-1,cola.size());
+        }
+
+        @Test
+        @DisplayName("Delete | primer elemento en la lista")
+        void DeleteFirstElement() {
+            //Arange
+            var length=cola.size();
+            //Act
+            cola.delete(cola.find(1));
+            // Assert
+            assertThrowsExactly(RuntimeException.class,()->cola.find(1));
+            assertEquals(length-1,cola.size());
+        }
+
+        @Test
+        @DisplayName("Delete | ultimo elemento en la lista")
+        void DeleteLastElement() {
+            //Arange
+            var length=cola.size();
+            //Act
+            cola.delete(cola.find(3));
+            // Assert
+            assertThrowsExactly(RuntimeException.class,()->cola.find(3));
+            assertEquals(length-1,cola.size());
+        }
+
+        @Test
+        @DisplayName("Delete | elemento intermedio de la lista")
+        void DeleteMiddleElement() {
+            //Arange
+            var length=cola.size();
+            //Act
+            cola.delete(cola.find(2));
+            // Assert
+            assertThrowsExactly(RuntimeException.class,()->cola.find(2));
+            assertEquals(length-1,cola.size());
+        }
+
+        @Test
+        @DisplayName("Delete | elemento no existente en la lista")
+        void DeleteInvalidElement() {
+            //Act && Assert
+            assertThrowsExactly(RuntimeException.class, () -> cola.delete(new DequeNode<>(4)));
+        }
+
+
     }
 
     @Nested
@@ -297,6 +365,45 @@ public class DoubleLinkedListQueueTest {
             cola= new DoubleLinkedListQueue();
             cola.append(new DequeNode<>(1));
             cola.append(new DequeNode<>(2));
+            cola.append(new DequeNode<>(3));
         }
+        @Test
+        @DisplayName("Sort | solo un elemento en la lista")
+        void sortOneElement() {
+            //Arrange
+            cola.delete(cola.peekLast());
+            cola.delete(cola.peekLast());
+            var colaEpected= new DoubleLinkedListQueue();
+            colaEpected.append(new DequeNode<>(1));
+            //Act
+            cola.sort(new Comparator<Integer>() {
+                @Override
+                public int compare(Integer o1, Integer o2) {
+                    return o2-o1;
+                }
+            });
+            // Assert
+            assertEquals(colaEpected,cola);
+        }
+
+        @Test
+        @DisplayName("Sort | mas de 1 elemento en la lista")
+        void sortManyElement() {
+            //Arrange
+            var colaEpected= new DoubleLinkedListQueue();
+            colaEpected.append(new DequeNode<>(3));
+            colaEpected.append(new DequeNode<>(2));
+            colaEpected.append(new DequeNode<>(1));
+            //Act
+            cola.sort(new Comparator<Integer>() {
+                @Override
+                public int compare(Integer o1, Integer o2) {
+                    return o1-o2;
+                }
+            });
+            // Assert
+            assertEquals(colaEpected,cola);
+        }
+
     }
 }

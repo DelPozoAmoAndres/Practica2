@@ -39,8 +39,8 @@ public class DequeNodeTest {
             var previousActual = nodo.getPrevious();
             //Assert
             assertEquals(1, itemActual);
-            assertEquals(nextExpected, nextActual);
-            assertEquals(previousExpected, previousActual);
+            assertEquals(nextExpected, nodo.getNext());
+            assertEquals(previousExpected, nodo.getPrevious());
         }
     }
 

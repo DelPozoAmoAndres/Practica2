@@ -116,11 +116,31 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue<T>{
 
     @Override
     public void delete(DequeNode<T> node) {
+        if(node==null)
+            throw new RuntimeException("El nodo a borrar no puede ser null");
         DequeNode<T> myNodo=head;
-        while (myNodo.getNext()!=null){
-            if(myNodo.equals(node)) {
-                myNodo.getPrevious().setNext(myNodo.getNext());
+        while (myNodo!=null){
+            if(myNodo.getItem().equals(node.getItem())) {
+                if(myNodo.getItem().equals(head.getItem())) {
+                    if(myNodo.getNext()!=null) {
+                        head = myNodo.getNext();
+                        head.setPrevious(null);
+                    }
+                    else {
+                        head = null;
+                    }
+                    if (size()==2) {
+                        head.setNext(null);
+                    }
+                }
+                else if(myNodo.getItem().equals(this.peekLast().getItem())){
+                    myNodo.getPrevious().setNext(null);
+                }
+                else
+                    myNodo.getPrevious().setNext(myNodo.getNext());
+
                 numElements--;
+                return;
             }
             myNodo=myNodo.getNext();
         }
@@ -132,11 +152,34 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue<T>{
         DequeNode<T> pivote = head;
         while(pivote.getNext()!=null){
             if (comparator.compare(pivote.getItem(), pivote.getNext().getItem())<0){
-                T aux = pivote.getItem();
-                pivote.setItem(pivote.getNext().getItem());
-                pivote.getNext().setItem(aux);
+                if(head.equals(pivote)) {
+                    head = pivote.getNext();
+                    pivote.setNext(pivote.getNext().getNext());
+                    head.setNext(pivote);
+                    head.setPrevious(null);
+                    pivote.setPrevious(head);
+
+                }
+                else {
+                    var next=pivote.getNext().getNext();
+                    var previous=pivote.getNext();
+                    pivote.getNext().setNext(pivote);
+                    pivote.getNext().setPrevious(pivote.getPrevious());
+                    pivote.getPrevious().setNext(previous);
+                    pivote.setPrevious(previous);
+                    pivote.setNext(next);
+                }
+                pivote=head;
             }
-            pivote=pivote.getNext();
+            else{
+                pivote=pivote.getNext();
+            }
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        DoubleLinkedListQueue<?> that = (DoubleLinkedListQueue<?>) o;
+        return numElements == that.numElements && head.getItem().equals(that.head.getItem());
     }
 }

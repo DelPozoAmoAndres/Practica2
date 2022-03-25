@@ -15,13 +15,13 @@ public class DequeNode<T> {
     private DequeNode<T> previous;
 
     public DequeNode(T item, DequeNode<T> next, DequeNode<T> previous) {
-        this.item = item;
-        this.next = next;
-        this.previous = previous;
+        this.setItem(item);
+        this.setNext(next);
+        this.setPrevious(previous);
     }
 
     public DequeNode(T item) {
-        this.item = item;
+        this.setItem(item);
         this.next = null;
         this.previous = null;
     }
@@ -34,11 +34,13 @@ public class DequeNode<T> {
         this.previous = previous;
     }
 
+    public void setItem(T item){
+        this.item=item;
+    }
+
     public T getItem() {
         return item;
     }
-
-    public void setItem(T item){ this.item=item; }
 
     public DequeNode<T> getNext() {
         return next;
@@ -58,13 +60,5 @@ public class DequeNode<T> {
 
     public boolean isNotATerminalNode() {
         return (!isFirstNode() && !isLastNode());
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DequeNode<?> dequeNode = (DequeNode<?>) o;
-        return Objects.equals(item, dequeNode.item) && Objects.equals(next, dequeNode.next) && Objects.equals(previous, dequeNode.previous);
     }
 }
