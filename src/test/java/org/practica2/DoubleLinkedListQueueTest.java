@@ -272,7 +272,7 @@ public class DoubleLinkedListQueueTest {
         @DisplayName("find | elemento null lanza excepcion")
         void findNullElement() {
             //Act && Assert
-            assertThrowsExactly(RuntimeException.class, () -> cola.find(3));
+            assertThrowsExactly(RuntimeException.class, () -> cola.find(null));
         }
 
     }
