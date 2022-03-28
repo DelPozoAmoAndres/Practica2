@@ -1,4 +1,4 @@
-
+DoubleLinkedListQueueTest.java------------------------------------------------------------------
     @Test
     @DisplayName("Constructor")
     void constructor() {}
@@ -57,6 +57,95 @@
         void deleteFirstError() {}
     }
 	
+    @Nested
+    class GetAt {
+
+        @ParameterizedTest
+        @DisplayName("getAt | posicion dentro de los limites")
+        void getAtValidPosition(int postion,int itemExpected) {}
+
+        @Test
+        @DisplayName("getAt | posicion negativa lanza excepcion")
+        void getAtNegativePosition(){}
+
+        @Test
+        @DisplayName("getAt | posicion mayor que size lanza excepcion")
+        void getAtInvalidPosition(){}
+    }
+
+    @Nested
+    class Find {
+       
+        @Test
+        @DisplayName("find | elementos existentes")
+        void findValidElements() {}
+
+        @Test
+        @DisplayName("find | elemento inexistente")
+        void findInValidElement() {}
+
+        @Test
+        @DisplayName("find | elemento null lanza excepcion")
+        void findNullElement() {}
+
+    }
+
+    @Nested
+    class Delete {
+
+        @Test
+        @DisplayName("Delete | elemento null lanza excepcion")
+        void DeleteNullElement() {}
+
+        @Test
+        @DisplayName("Delete | un unico elemento en la lista")
+        void DeleteUnicoElement() {}
+
+        @Test
+        @DisplayName("Delete | primer elemento en la lista")
+        void DeleteFirstElement() {}
+
+        @Test
+        @DisplayName("Delete | ultimo elemento en la lista")
+        void DeleteLastElement() {
+            //Arange
+            var length=cola.size();
+            //Act
+            cola.delete(cola.find(3));
+            // Assert
+            assertThrowsExactly(RuntimeException.class,()->cola.find(3));
+            assertEquals(length-1,cola.size());
+        }
+
+        @Test
+        @DisplayName("Delete | elemento intermedio de la lista")
+        void DeleteMiddleElement() {}
+
+        @Test
+        @DisplayName("Delete | todos los elementos")
+        void DeleteAllElements() {}
+
+        @Test
+        @DisplayName("Delete | elemento no existente en la lista")
+        void DeleteInvalidElement() {}
+
+
+    }
+
+    @Nested
+    class Sort {
+        
+        @Test
+        @DisplayName("Sort | solo un elemento en la lista")
+        void sortOneElement() {}
+
+        @Test
+        @DisplayName("Sort | mas de 1 elemento en la lista")
+        void sortManyElement() {}
+
+    }
+
+DequeNodeTest.java---------------------------------------------------------------------------------------
     @Nested
     class Constructor {
         @Test
