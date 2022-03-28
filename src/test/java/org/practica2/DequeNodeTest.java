@@ -14,16 +14,12 @@ public class DequeNodeTest {
         @Test
         @DisplayName("Constructor con Item")
         void ConstructorItem() {
-            //Arrange
+            //Arrange && Act
             DequeNode<Integer> nodo = new DequeNode(1);
-            //Act
-            var itemActual = nodo.getItem();
-            var nextActual = nodo.getNext();
-            var previousActual = nodo.getPrevious();
             //Assert
-            assertEquals(1, itemActual);
-            assertEquals(null, nextActual);
-            assertEquals(null, previousActual);
+            assertEquals(1, nodo.getItem());
+            assertEquals(null, nodo.getNext());
+            assertEquals(null, nodo.getPrevious());
         }
 
         @Test
@@ -51,10 +47,8 @@ public class DequeNodeTest {
         void esUltimo() {
             //Arrange
             DequeNode<Integer> nodo = new DequeNode<>(1);
-            //Act
-            var isLastActual = nodo.isLastNode();
-            //Assert
-            assertEquals(true, isLastActual);
+            //Assert && Act
+            assertEquals(true, nodo.isLastNode());
         }
 
         @Test
@@ -62,10 +56,8 @@ public class DequeNodeTest {
         void noEsUltimo() {
             //Arrange
             DequeNode<Integer> nodo = new DequeNode<>(1, new DequeNode<>(2), null);
-            //Act
-            var isLastActual = nodo.isLastNode();
-            //Assert
-            assertEquals(false, isLastActual);
+            //Assert && Act
+            assertEquals(false, nodo.isLastNode());
         }
     }
 

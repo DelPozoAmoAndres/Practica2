@@ -91,15 +91,17 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue<T>{
         if(position>this.size())
             throw new RuntimeException("La posicion no puede ser mayor que la longitud de la cola");
         int counter=0;
+        DequeNode<T> result=null;
         DequeNode<T> myNodo=head;
         while (myNodo!=null){
-            if(counter==position)
-                return myNodo;
+            if(counter==position) {
+                result = myNodo;
+                break;
+            }
             myNodo=myNodo.getNext();
             counter++;
         }
-        throw new RuntimeException("La posicion es mayor al tamaño de la cola");
-    }
+        return result;}
 
     @Override
     public DequeNode<T> find(T item) {
@@ -124,20 +126,17 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue<T>{
                 if(myNodo.getItem().equals(head.getItem())) {
                     if(myNodo.getNext()!=null) {
                         head = myNodo.getNext();
-                        head.setPrevious(null);
-                    }
-                    else {
+                        head.setPrevious(null);}
+                    else
                         head = null;
-                    }
-                    if (size()==2) {
-                        head.setNext(null);
-                    }
                 }
                 else if(myNodo.getItem().equals(this.peekLast().getItem())){
                     myNodo.getPrevious().setNext(null);
                 }
-                else
+                else {
+                    myNodo.getNext().setPrevious(myNodo.getPrevious());
                     myNodo.getPrevious().setNext(myNodo.getNext());
+                }
 
                 numElements--;
                 return;
@@ -157,9 +156,7 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue<T>{
                     pivote.setNext(pivote.getNext().getNext());
                     head.setNext(pivote);
                     head.setPrevious(null);
-                    pivote.setPrevious(head);
-
-                }
+                    pivote.setPrevious(head);}
                 else {
                     var next=pivote.getNext().getNext();
                     var previous=pivote.getNext();

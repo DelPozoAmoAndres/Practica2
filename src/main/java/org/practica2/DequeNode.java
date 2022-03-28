@@ -37,27 +37,21 @@ public class DequeNode<T> {
     public void setItem(T item){
         this.item=item;
     }
-
     public T getItem() {
         return item;
     }
-
     public DequeNode<T> getNext() {
         return next;
     }
-
     public DequeNode<T> getPrevious() {
         return previous;
     }
-
     public boolean isFirstNode() {
         return previous == null;
     }
-
     public boolean isLastNode() {
         return next == null;
     }
-
     public boolean isNotATerminalNode() {
         return (!isFirstNode() && !isLastNode());
     }
